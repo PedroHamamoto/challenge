@@ -3,6 +3,9 @@ package br.com.challenge;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Class responsible for configure the application
+ */
 @SpringBootApplication
 public class ApplicationConfig {
 
