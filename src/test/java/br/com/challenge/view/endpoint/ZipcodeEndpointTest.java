@@ -39,9 +39,10 @@ public class ZipcodeEndpointTest {
         mvc.perform(get("/cep/{cep}", "12345678"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.zipcode", is("12345678")))
-                .andExpect(jsonPath("$.neighborhood", is("neighborhood")))
-                .andExpect(jsonPath("$.state", is("state")))
-                .andExpect(jsonPath("$.city", is("city")));
+                .andExpect(jsonPath("$.uri", is("/cep/12345678")))
+                .andExpect(jsonPath("$.item.zipcode", is("12345678")))
+                .andExpect(jsonPath("$.item.neighborhood", is("neighborhood")))
+                .andExpect(jsonPath("$.item.state", is("state")))
+                .andExpect(jsonPath("$.item.city", is("city")));
     }
 }

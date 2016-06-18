@@ -2,6 +2,7 @@ package br.com.challenge.view.endpoint;
 
 import br.com.challenge.ZipcodeService;
 import br.com.challenge.model.Zipcode;
+import br.com.challenge.view.presentation.dto.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Defines a <strong>cep</strong> api, which provides the zip code search service <br>
@@ -24,9 +27,11 @@ public class ZipcodeEndpoint {
     private ZipcodeService zipcodeService;
 
     @RequestMapping(value = "/{zipcode}", method = RequestMethod.GET)
-    public ResponseEntity<Zipcode> getZipcode(@PathVariable String zipcode) {
+    public ResponseEntity<Resource> getZipcode(@PathVariable String zipcode, HttpServletRequest request) {
         Zipcode found = zipcodeService.search(zipcode);
 
-        return new ResponseEntity<Zipcode>(found, HttpStatus.OK);
+        Resource<Zipcode> resource = new Resource<Zipcode>(request.getRequestURI(), found);
+
+        return new ResponseEntity(resource, HttpStatus.OK);
     }
 }
