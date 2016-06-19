@@ -55,4 +55,14 @@ public class AddressEndpointIT {
                 .andExpect(jsonPath("$.item.code", is("400")))
                 .andExpect(jsonPath("$.item.message", is("CEP inválido")));
     }
+
+    @Test
+    public void shouldNotGetANonexistentCep() throws Exception {
+        mvc.perform(get("/cep/{cep}", "00000000"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.uri", is("/cep/00000000")))
+                .andExpect(jsonPath("$.item.code", is("404")))
+                .andExpect(jsonPath("$.item.message", is("CEP não encontrado")));
+    }
 }

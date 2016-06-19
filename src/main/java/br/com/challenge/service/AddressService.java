@@ -1,5 +1,6 @@
-package br.com.challenge;
+package br.com.challenge.service;
 
+import br.com.challenge.infrastructure.exception.CepNotFoundException;
 import br.com.challenge.infrastructure.exception.InvalidCepException;
 import br.com.challenge.infrastructure.repository.AddressRepository;
 import br.com.challenge.model.Address;
@@ -22,7 +23,20 @@ public class AddressService {
             throw new InvalidCepException();
         }
 
-        return addressRepository.find(cep);
+        Address address = addressRepository.find(cep);
+
+        int digits = 1;
+
+        while (address == null && digits != 8) {
+            cep.replaceAll("\\d{" + digits++ + "}$", "0");
+            address = addressRepository.find(cep);
+        }
+
+        if (address != null) {
+            return address;
+        } else {
+            throw new CepNotFoundException();
+        }
     }
 
     private boolean isAValidCep(String cep) {
