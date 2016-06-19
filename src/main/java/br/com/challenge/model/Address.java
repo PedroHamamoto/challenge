@@ -1,21 +1,21 @@
 package br.com.challenge.model;
 
-public class Zipcode {
+public class Address {
 
-    private String zipcode;
+    private String cep;
     private String neighborhood;
     private String state;
     private String city;
 
-    public Zipcode(String zipcode, String neighborhood, String state, String city) {
-        this.zipcode = zipcode;
+    public Address(String cep, String neighborhood, String state, String city) {
+        this.cep = cep;
         this.neighborhood = neighborhood;
         this.state = state;
         this.city = city;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getCep() {
+        return cep;
     }
 
     public String getNeighborhood() {

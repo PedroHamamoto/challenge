@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
 @WebAppConfiguration
-public class ZipcodeEndpointTest {
+public class AddressEndpointIT {
 
     @Autowired
     private WebApplicationContext context;
@@ -35,19 +35,19 @@ public class ZipcodeEndpointTest {
     }
 
     @Test
-    public void shouldGetAZipcode() throws Exception {
+    public void shouldGetACep() throws Exception {
         mvc.perform(get("/cep/{cep}", "12345678"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.uri", is("/cep/12345678")))
-                .andExpect(jsonPath("$.item.zipcode", is("12345678")))
+                .andExpect(jsonPath("$.item.cep", is("12345678")))
                 .andExpect(jsonPath("$.item.neighborhood", is("neighborhood")))
                 .andExpect(jsonPath("$.item.state", is("state")))
                 .andExpect(jsonPath("$.item.city", is("city")));
     }
 
     @Test
-    public void shouldNotGetAZipcodeWhenItsNotValid() throws Exception {
+    public void shouldNotGetACepWhenItsNotValid() throws Exception {
         mvc.perform(get("/cep/{cep}", "0147856"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
