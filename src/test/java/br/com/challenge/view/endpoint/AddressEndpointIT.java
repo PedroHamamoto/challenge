@@ -39,11 +39,11 @@ public class AddressEndpointIT {
         mvc.perform(get("/cep/{cep}", "12345678"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.uri", is("/cep/12345678")))
+                    .andExpect(jsonPath("$.uri", is("/cep/12345678")))
                 .andExpect(jsonPath("$.item.cep", is("12345678")))
-                .andExpect(jsonPath("$.item.neighborhood", is("neighborhood")))
-                .andExpect(jsonPath("$.item.state", is("state")))
-                .andExpect(jsonPath("$.item.city", is("city")));
+                .andExpect(jsonPath("$.item.neighborhood", is("Bairro A")))
+                .andExpect(jsonPath("$.item.state", is("Estado A")))
+                .andExpect(jsonPath("$.item.city", is("Cidade A")));
     }
 
     @Test
