@@ -1,6 +1,7 @@
 package br.com.challenge.view.endpoint;
 
 import br.com.challenge.ZipcodeService;
+import br.com.challenge.infrastructure.exception.CepNotFoundException;
 import br.com.challenge.model.Zipcode;
 import br.com.challenge.view.presentation.dto.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ZipcodeEndpoint {
     private ZipcodeService zipcodeService;
 
     @RequestMapping(value = "/{zipcode}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> getZipcode(@PathVariable String zipcode, HttpServletRequest request) {
+    public ResponseEntity<Resource> getZipcode(@PathVariable String zipcode, HttpServletRequest request) throws CepNotFoundException {
         Zipcode found = zipcodeService.search(zipcode);
 
         Resource<Zipcode> resource = new Resource<Zipcode>(request.getRequestURI(), found);

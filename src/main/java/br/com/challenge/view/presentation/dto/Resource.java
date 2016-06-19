@@ -5,8 +5,8 @@ package br.com.challenge.view.presentation.dto;
  */
 public class Resource<T> {
 
-    private final String uri;
-    private final T item;
+    private String uri;
+    private T item;
 
     public Resource(String uri, T item) {
         this.uri = uri;

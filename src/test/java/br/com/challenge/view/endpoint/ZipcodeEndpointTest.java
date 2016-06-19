@@ -45,4 +45,14 @@ public class ZipcodeEndpointTest {
                 .andExpect(jsonPath("$.item.state", is("state")))
                 .andExpect(jsonPath("$.item.city", is("city")));
     }
+
+    @Test
+    public void shouldNotGetAZipcodeWhenItsNotValid() throws Exception {
+        mvc.perform(get("/cep/{cep}", "0147856"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.uri", is("/cep/0147856")))
+                .andExpect(jsonPath("$.item.code", is("400")))
+                .andExpect(jsonPath("$.item.message", is("CEP inválido")));
+    }
 }
