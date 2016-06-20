@@ -22,6 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class AddressEndpointIT {
 
+    private static final String CEP_URI = "/cep/{cep}";
+    private static final String FORMAT_CEP_URI = "/cep/%s";
+    private static final String EXISTING_CEP = "12345678";
+    private static final String INVALID_CEP = "0147856";
+    private static final String NONEXISTENT_CEP = "00000000";
+
+
     @Autowired
     private WebApplicationContext context;
 
@@ -36,11 +43,11 @@ public class AddressEndpointIT {
 
     @Test
     public void shouldGetACep() throws Exception {
-        mvc.perform(get("/cep/{cep}", "12345678"))
+        mvc.perform(get(CEP_URI, EXISTING_CEP))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                    .andExpect(jsonPath("$.uri", is("/cep/12345678")))
-                .andExpect(jsonPath("$.item.cep", is("12345678")))
+                    .andExpect(jsonPath("$.uri", is(String.format(FORMAT_CEP_URI, EXISTING_CEP))))
+                .andExpect(jsonPath("$.item.cep", is(EXISTING_CEP)))
                 .andExpect(jsonPath("$.item.neighborhood", is("Bairro A")))
                 .andExpect(jsonPath("$.item.state", is("Estado A")))
                 .andExpect(jsonPath("$.item.city", is("Cidade A")));
@@ -48,20 +55,20 @@ public class AddressEndpointIT {
 
     @Test
     public void shouldNotGetACepWhenItsNotValid() throws Exception {
-        mvc.perform(get("/cep/{cep}", "0147856"))
+        mvc.perform(get(CEP_URI, INVALID_CEP))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.uri", is("/cep/0147856")))
+                .andExpect(jsonPath("$.uri", is(String.format(FORMAT_CEP_URI, INVALID_CEP))))
                 .andExpect(jsonPath("$.item.code", is("400")))
                 .andExpect(jsonPath("$.item.message", is("CEP inválido")));
     }
 
     @Test
     public void shouldNotGetANonexistentCep() throws Exception {
-        mvc.perform(get("/cep/{cep}", "00000000"))
+        mvc.perform(get(CEP_URI, NONEXISTENT_CEP))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.uri", is("/cep/00000000")))
+                .andExpect(jsonPath("$.uri", is(String.format(FORMAT_CEP_URI, NONEXISTENT_CEP))))
                 .andExpect(jsonPath("$.item.code", is("404")))
                 .andExpect(jsonPath("$.item.message", is("CEP não encontrado")));
     }

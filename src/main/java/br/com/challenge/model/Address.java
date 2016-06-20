@@ -1,5 +1,7 @@
 package br.com.challenge.model;
 
+import java.util.Objects;
+
 public class Address {
 
     private String cep;
@@ -8,7 +10,7 @@ public class Address {
     private String city;
 
     public Address() {
-        
+
     }
 
     public Address(String cep, String neighborhood, String state, String city) {
@@ -48,5 +50,21 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(cep, address.cep) &&
+                Objects.equals(neighborhood, address.neighborhood) &&
+                Objects.equals(state, address.state) &&
+                Objects.equals(city, address.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cep, neighborhood, state, city);
     }
 }

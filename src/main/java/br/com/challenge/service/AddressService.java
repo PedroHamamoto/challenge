@@ -23,20 +23,28 @@ public class AddressService {
             throw new InvalidCepException();
         }
 
-        Address address = addressRepository.find(cep);
-
-        int digits = 1;
-
-        while (address == null && digits != 8) {
-            cep.replaceAll("\\d{" + digits++ + "}$", "0");
-            address = addressRepository.find(cep);
-        }
+        Address address = searchAValidAddress(cep);
 
         if (address != null) {
             return address;
         } else {
             throw new CepNotFoundException();
         }
+    }
+
+    private Address searchAValidAddress(String cep) {
+        Address address = addressRepository.find(cep);
+
+        int index = 8;
+        char[] charCep = cep.toCharArray();
+
+        while (address == null && !cep.equals("00000000")) {
+            charCep[--index] = '0';
+            cep = new String(charCep);
+            address = addressRepository.find(cep);
+        }
+
+        return address;
     }
 
     private boolean isAValidCep(String cep) {

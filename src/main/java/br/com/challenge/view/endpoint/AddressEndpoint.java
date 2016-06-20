@@ -1,8 +1,8 @@
 package br.com.challenge.view.endpoint;
 
-import br.com.challenge.AddressService;
 import br.com.challenge.infrastructure.exception.CepNotFoundException;
 import br.com.challenge.model.Address;
+import br.com.challenge.service.AddressService;
 import br.com.challenge.view.presentation.dto.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
