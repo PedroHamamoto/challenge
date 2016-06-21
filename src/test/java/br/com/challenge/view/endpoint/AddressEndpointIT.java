@@ -22,12 +22,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class AddressEndpointIT {
 
-    private static final String CEP_URI = "/cep/{cep}";
-    private static final String FORMAT_CEP_URI = "/cep/%s";
+    private static final String CEP_URI = "/rs/cep/{cep}";
+    private static final String FORMAT_CEP_URI = "/rs/cep/%s";
     private static final String EXISTING_CEP = "12345678";
     private static final String INVALID_CEP = "0147856";
     private static final String NONEXISTENT_CEP = "00000000";
-
 
     @Autowired
     private WebApplicationContext context;

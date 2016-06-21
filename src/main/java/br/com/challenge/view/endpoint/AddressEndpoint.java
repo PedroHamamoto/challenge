@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * <strong>GET</strong> returns a {@link Address} if it is valid or else returns a message error
  */
 @RestController
-@RequestMapping("/cep")
+@RequestMapping("/rs/cep")
 public class AddressEndpoint {
 
     @Autowired
