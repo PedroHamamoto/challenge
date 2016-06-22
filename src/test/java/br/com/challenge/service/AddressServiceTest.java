@@ -1,6 +1,5 @@
 package br.com.challenge.service;
 
-import br.com.challenge.infrastructure.exception.CepNotFoundException;
 import br.com.challenge.infrastructure.exception.InvalidCepException;
 import br.com.challenge.infrastructure.repository.AddressRepository;
 import br.com.challenge.model.Address;
@@ -55,7 +54,7 @@ public class AddressServiceTest {
         Address address = addressService.search(INVALID_CEP);
     }
 
-    @Test(expected = CepNotFoundException.class)
+    @Test(expected = InvalidCepException.class)
     public void shouldNotGetANonexistentCep() {
         Address address = addressService.search(NONEXISTENT_CEP);
     }

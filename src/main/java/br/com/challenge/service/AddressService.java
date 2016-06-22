@@ -1,6 +1,5 @@
 package br.com.challenge.service;
 
-import br.com.challenge.infrastructure.exception.CepNotFoundException;
 import br.com.challenge.infrastructure.exception.InvalidCepException;
 import br.com.challenge.infrastructure.repository.AddressRepository;
 import br.com.challenge.model.Address;
@@ -28,7 +27,7 @@ public class AddressService {
         if (address != null) {
             return address;
         } else {
-            throw new CepNotFoundException();
+            throw new InvalidCepException();
         }
     }
 

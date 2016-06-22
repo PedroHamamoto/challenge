@@ -1,6 +1,5 @@
 package br.com.challenge.view.endpoint;
 
-import br.com.challenge.infrastructure.exception.CepNotFoundException;
 import br.com.challenge.model.Address;
 import br.com.challenge.service.AddressService;
 import br.com.challenge.view.presentation.dto.Resource;
@@ -28,7 +27,7 @@ public class AddressEndpoint {
     private AddressService addressService;
 
     @RequestMapping(value = "/{cep}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> getCep(@PathVariable String cep, HttpServletRequest request) throws CepNotFoundException {
+    public ResponseEntity<Resource> getCep(@PathVariable String cep, HttpServletRequest request) {
         Address found = addressService.search(cep);
 
         Resource<Address> resource = new Resource<Address>(request.getRequestURI(), found);

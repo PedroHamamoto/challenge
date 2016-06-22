@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
  * Enum representing all {@link ApplicationException} attributes
  */
 public enum ApplicationExceptionEnum {
-    CEP_NOT_FOUND_EXCEPTION("404", "CEP não encontrado", HttpStatus.NOT_FOUND),
     INVALID_CEP_EXCEPTION("400", "CEP inválido", HttpStatus.BAD_REQUEST);
 
     private String code;
